@@ -108,6 +108,44 @@ rsync -a plugin/SKILL.md plugin/references plugin/examples plugin/commands \
 - Greppable beats pretty. Predictable headers, predictable threat IDs (`T-NNN`), predictable mitigation IDs (`M-NNN`), predictable status enum values.
 - Honest residual risk. Every threat ends with a residual-risk line. "Mitigated" without evidence is a claim, not a control.
 
+## Source repos & inspiration
+
+threat-modeler is a downstream artifact of three open-source projects. What was leveraged from each:
+
+### [tyroneross/agent-builder](https://github.com/tyroneross/agent-builder) — structural template
+
+threat-modeler's plugin shape mirrors agent-builder. Specifically:
+
+- **Slim dual-LLM plugin layout** — `plugin/SKILL.md` with Claude `description` + Codex `metadata` frontmatter, sibling `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`, `references/methodology/` + `references/templates/` + `examples/` + `commands/` folders. Marketplace-portable, no symlinks crossing plugin boundaries.
+- **Distribution model** — slim plugin only; no companion workbench. agent-builder's clone-only workbench was intentionally not replicated.
+- **Methodology tone** — direct, specific, no filler. Numbered files (`01-when-to-use.md` … `07-decision-log-and-versioning.md`) match agent-builder's `01-…11-…` pattern.
+- **Cross-reference pattern** — absolute paths to canon (rather than relative paths or symlinks) so the plugin remains marketplace-portable while still pointing at sibling installations.
+- **Upstream artifact contracts** — agent-builder's templates (`system-boundary.md`, `tool-contract.md`, `agent-manifest.md`, `guardrail.md`, `flow-topology.md`, `role-card.md`) are the sibling artifacts threat-modeler **cross-references** instead of re-authoring. A threat-model artifact reads cleanly *because* the underlying boundary, tool, and manifest contracts already exist upstream.
+- **Autonomy ladder (A0–A4)** from `methodology/13-agentic-product-dev-synthesis.md` — used to scope artifact weight (a T1 read-only tool gets a 1-page artifact; a T4/T5 tool at A2+ gets the full template).
+- **MIT license** — matched.
+
+### [tyroneross/build-loop](https://github.com/tyroneross/build-loop) — integration target
+
+threat-modeler exists to satisfy a contract build-loop creates. What was leveraged:
+
+- **`plan-verify` rule 10 (`risk-surface-change-without-threat-model`)** — the rule that *demands* a threat-model artifact in the first place. Threat-modeler's filename convention (`<feature>-threat-model.md`), header schema (`## STRIDE`, `## Mitigations`, etc.), and YAML front-block (`threat_model:` key) were authored to satisfy rule 10's regex three independent ways.
+- **`security-methodology` skill** — the canonical OWASP × OWASP-Agentic × MITRE-ATLAS × NIST-600-1 cross-source matrix. Threat-modeler cites IDs *from* build-loop's canon when installed; falls back to upstream OWASP/ATLAS/NIST URLs otherwise.
+- **`security-reviewer` agent contract** — the Phase 4-A grader. Threat-modeler's section names, threat ID schema (`T-NNN`), mitigation ID schema (`M-NNN`), decision-log ID schema (`D-NNN`), and status enum (`mitigated | accepted | open | transferred`) were chosen to be machine-parseable by the reviewer's grading prompt.
+- **Severity vocabulary (`CRITICAL / HIGH / MEDIUM / LOW`) and permission-tier vocabulary (`T0–T5`)** — adopted verbatim from build-loop, not redefined.
+
+### [cisco-ai-defense/defenseclaw](https://github.com/cisco-ai-defense/defenseclaw) — runtime context
+
+threat-modeler is **build-time descriptive** and complementary to DefenseClaw's **runtime enforcement**. What it leverages:
+
+- **Govern / Inspect / Prove three-pillar mental model** — DefenseClaw's framing of agentic security as admission control + runtime traffic inspection + audit evidence shaped how threat-modeler positions itself: a design-time artifact whose mitigations get *enforced* by Inspect-layer tools (DefenseClaw, NeMo Guardrails, Llama Guard, Galileo Agent Control) at runtime. The artifact does not replace the runtime layer.
+- **"Mitigation without evidence is a claim" posture** — DefenseClaw's architecture clarifies that a threat-model is a description, not a control. Threat-modeler's mitigation rows therefore require an `evidence` column (PR / file / config / test) and a `status` (`mitigated | accepted | open | transferred`) — never just an assertion.
+- **Detection-pattern influence** — DefenseClaw's regex rule packs (prompt-injection signatures, secrets patterns, exfiltration commands) implicitly informed the detection-pattern rows cited in `references/methodology/05-mapping-to-owasp-asi.md`.
+
+### Methodology lineage (not repos, but worth naming)
+
+- **STRIDE** — Microsoft's foundational threat-modeling framework. `references/methodology/02-stride-overview.md` adapts STRIDE for agentic systems; the threat decomposition table uses STRIDE categories as columns.
+- **Cisco/Zenity Labs collaboration on MITRE ATLAS** (Oct 2025) — added 14 agent-specific techniques (autonomy/delegation/runtime attack paths). Influenced the "starter" technique set in `05-mapping-to-owasp-asi.md`.
+
 ## Sources
 
 - **OWASP Top 10 for LLM Applications (v1.1)** — `https://genai.owasp.org/resource/llm-ai-security-and-governance-checklist/`.
