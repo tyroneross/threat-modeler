@@ -1,0 +1,36 @@
+{
+  "name": "threat-modeler",
+  "version": "0.1.0",
+  "description": "Lightweight workshop assistant that produces a threat-model artifact for an agentic system or risk-surface change",
+  "author": {
+    "name": "Tyrone Ross"
+  },
+  "homepage": "https://github.com/tyroneross/threat-modeler",
+  "repository": "https://github.com/tyroneross/threat-modeler",
+  "license": "MIT",
+  "keywords": [
+    "threat-model",
+    "security",
+    "stride",
+    "owasp",
+    "asi",
+    "llm",
+    "agentic",
+    "build-loop",
+    "plan-verify",
+    "security-review",
+    "risk-surface"
+  ],
+  "skills": "./",
+  "interface": {
+    "displayName": "Threat Modeler",
+    "shortDescription": "Produce a threat-model artifact for an agentic system or risk-surface change",
+    "longDescription": "Workshop assistant that walks an author from risk-surface signal to a finished threat-model markdown artifact. STRIDE-style decomposition, asset/actor enumeration, data-flow description, OWASP LLM/Agentic + MITRE ATLAS + NIST AI 600-1 cross-mapping, mitigation table, residual risk, decision log. Output satisfies build-loop's plan-verify rule 10 (`risk-surface-change-without-threat-model`). Cross-LLM: Claude Code reads the natural-language description; Codex auto-activates on the metadata block.",
+    "developerName": "Ross Labs",
+    "category": "Coding",
+    "capabilities": [
+      "Read",
+      "Write"
+    ]
+  }
+}
