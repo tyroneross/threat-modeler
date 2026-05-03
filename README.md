@@ -144,7 +144,7 @@ threat-modeler is **build-time descriptive** and complementary to DefenseClaw's 
 ### Methodology lineage (not repos, but worth naming)
 
 - **STRIDE** — Microsoft's foundational threat-modeling framework. `references/methodology/02-stride-overview.md` adapts STRIDE for agentic systems; the threat decomposition table uses STRIDE categories as columns.
-- **Cisco/Zenity Labs collaboration on MITRE ATLAS** (Oct 2025) — added 14 agent-specific techniques (autonomy/delegation/runtime attack paths). Influenced the "starter" technique set in `05-mapping-to-owasp-asi.md`.
+- **Zenity Labs contribution to MITRE ATLAS** (Oct 2025) — Zenity Labs contributed 14 agent-specific attack techniques and sub-techniques (autonomy / delegation / runtime attack paths) to MITRE ATLAS. Influenced the "starter" technique set in `05-mapping-to-owasp-asi.md`. Independent of and unrelated to Cisco DefenseClaw, which is cited separately above as a runtime-context source.
 
 ## Sources
 
