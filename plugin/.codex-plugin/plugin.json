@@ -7,7 +7,7 @@
   },
   "homepage": "https://github.com/tyroneross/threat-modeler",
   "repository": "https://github.com/tyroneross/threat-modeler",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "threat-model",
     "security",
