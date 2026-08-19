@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Lightweight workshop assistant that produces a threat-model artifact for an agentic system or risk-surface change",
   "author": {
-    "name": "Tyrone Ross"
+    "name": "Tyrone Ross",
+    "url": "https://github.com/tyroneross"
   },
   "homepage": "https://github.com/tyroneross/threat-modeler",
   "repository": "https://github.com/tyroneross/threat-modeler",
